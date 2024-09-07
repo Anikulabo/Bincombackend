@@ -1,0 +1,29 @@
+.sidebar {
+    height: 100vh;
+    padding: 20px;
+  }
+  .small-text {
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  .round-image {
+    border-radius: 50%;
+    width: 80%; /* Ensure the width is equal to the height for a perfect circle */
+    height: 80%; /* Height of the image */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    margin-right: 10px; /* Add some space between the image and the text */
+    margin-left: -15px;
+  }
+  .data {
+    width: 100%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black; /* Set the bottom border */
+    outline: none; /* Remove outline */
+    transition: border-bottom-color 0.3s ease;
+  }
+  .data:focus {
+    border-bottom-color: limegreen; /* Change bottom border color on focus */
+  }

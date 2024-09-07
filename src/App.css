@@ -1,0 +1,22 @@
+.main-content {
+  position: relative;
+  height: 100vh;
+  /* Ensure the content is above the watermark */
+  z-index: 1;
+}
+
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('components/img/inec.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 300px 300px; /* Adjust size as necessary */
+  opacity: 0.2; /* Make it semi-transparent */
+  filter: blur(5px); /* Apply the blur only to the watermark */
+  z-index: -1; /* Ensure the watermark stays behind the content */
+}
