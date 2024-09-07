@@ -1,38 +1,22 @@
-.App {
-  text-align: center;
+.main-content {
+  position: relative;
+  height: 100vh;
+  /* Ensure the content is above the watermark */
+  z-index: 1;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('components/img/inec.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 300px 300px; /* Adjust size as necessary */
+  opacity: 0.2; /* Make it semi-transparent */
+  filter: blur(5px); /* Apply the blur only to the watermark */
+  z-index: -1; /* Ensure the watermark stays behind the content */
 }
