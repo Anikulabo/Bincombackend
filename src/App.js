@@ -15,7 +15,6 @@ const fetchLGA = async () => {
     const response = await axios.get(
       `http://localhost:3001/api/lga/state/${state_id}`
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error:", error);
@@ -32,7 +31,7 @@ const fetchWard = async (lga_id, searchitem) => {
       : await axios.get(
           `http://localhost:3001/api/wards/${lga_id}/${searchitem}`
         );
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.error("Error fetching wards:", error);
@@ -160,7 +159,6 @@ function App() {
   const changeSelectedItems = useCallback(
     (value, type) => {
       setAllselecteditems({ ...allselecteditems, [type]: value });
-      console.log(value);
     },
     [allselecteditems]
   );
@@ -225,11 +223,20 @@ function App() {
         );
 
         // Handle response errors
-        if (response.status !== 200) {
+        if (response.status !== 201) {
           alert(`Submission failed: ${response.statusText}`);
           throw new Error(`Submission failed: ${response.statusText}`);
         } else {
           alert("Submission successful!");
+          const newdata={}
+          for(const key of Object.keys(data)){
+            if(typeof data[key]==="string"){
+              newdata[key]=""
+            }if(typeof data[key]==="number"){
+              newdata[key]=0
+            }
+          }
+          setData(newdata)
         }
       } catch (error) {
         console.log("Error:", error);
@@ -284,6 +291,16 @@ function App() {
     }
     setAllselecteditems(newselecteditems)
   }, [activeaction]);
+  useEffect(()=>{
+    for(const key of Object.keys(allselecteditems)){
+      if(key!="LGA"&&key!=="Party"){
+        setAllselecteditems({...allselecteditems,[key]:0})
+      }
+    }
+  },[allselecteditems['LGA']])
+  useEffect(()=>{
+    setAllselecteditems({...allselecteditems,Pu:0})
+  },[allselecteditems['Ward']])
   return (
     <div className="container-fluid main-content">
       <div className="row">
@@ -292,7 +309,7 @@ function App() {
           handleButtonClick={changeactiveaction}
           active={activeaction}
         />
-        <div className="col-md-10 content">
+        <div className="col-md-10 content" style={{maxHeight:"100vh",overflowY:"auto"}}>
           {LGALoading ? (
             <p>Loading LGA data...</p>
           ) : LGAError ? (
